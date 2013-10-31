@@ -9,4 +9,4 @@ var data = require('./db');
 var app = server.getApp();
 
 socket.listen(server.listen(), app);
-server.listen();
+//server.listen();
