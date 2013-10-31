@@ -8,7 +8,7 @@ var server = require('http').createServer(app);
 
 var routes = require('./routes');
 var path = require('path');
-var twig = require('./node_modules/twig/twig.js');
+var twig = require('twig');
 
 var data = require('./db');
 
