@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% block head %}
+
+	    <title>{% block title %}{{app.title|default('')}}{% endblock %}</title>
+
+	    {# Metas #}
+	    {% block metas %}
+		    {% if app.metas is defined and app.metas is not empty %}
+		    	{% for meta in app.metas %}
+		    		<meta name="{{meta.name}}" content="{{meta.content}}">
+		    	{% endfor %}
+		    {% endif %}
+	    {% endblock metas %}
+
+	    {# Stylesheets #}
+	    {% block stylesheets %}
+		    {% if app.stylesheets is defined and app.stylesheets is not empty %}
+		    	{% for style in app.stylesheets %}
+		    		<link rel="stylesheet" href="{{style.path}}" {% if style.attributes is defined%}{% for attr in style.attributes%} {{attr.name}}="{{attr.value}}" {% endfor %}{% endif %}/>
+		    	{% endfor %}
+		    {% endif %}
+	    {% endblock stylesheets %}
+
+	    {# Header Javascripts #}
+	    {% block headerJavascripts %}
+		    {% if app.javascripts.header is defined and app.javascripts.header is not empty %}
+		    	{% for script in app.javascripts.header %}
+		    		<script type="text/javascript" src="{{script.path}}"></script>
+		    	{% endfor %}
+		    {% endif %}
+	    {% endblock headerJavascripts %}
+
+	{% endblock head %}
+</head>
+<body>
+	{% block topNav %}
+		{% include "common/top.nav.html.twig" %}
+	{% endblock topNav %}
+
+	{% block header %}
+		{% include "common/header.html.twig" %}
+	{% endblock header %}
+
+	<div id="container" class="container">
+		{% block content %}{% endblock %}
+	</div> <!-- /container -->
+
+	{% block footer %}
+		{% include "common/footer.html.twig" %}
+	{% endblock footer %}
+
+
+	{# Footer Javascripts #}
+	{% block footerJavascripts %}
+		{% if app.javascripts.footer is defined and app.javascripts.footer is not empty %}
+			{% for script in app.javascripts.footer %}
+				<script type="text/javascript" src="{{script.path}}"></script>
+			{% endfor %}
+		{% endif %}
+	{% endblock footerJavascripts %}
+</body>
+</html>

@@ -1,0 +1,83 @@
+{
+    "name" : "Node CMS",
+    "title" : "Page Title - Node CMS",
+    "keywords" : "single page, cms, node js",
+    "description" : "A cms built on Node JS, MongoDb, and Express",
+    "metas" : [
+        {
+            "name" : "viewport",
+            "content" : "width=device-width, initial-scale=1.0"
+        },
+        {
+            "name" : "keywords",
+            "content" : "single page, cms, node js"
+        },
+        {
+            "name" : "description",
+            "content" : "A cms built on Node JS, MongoDb, and Express"
+        }
+    ],
+    "stylesheets" : [
+        {
+            "name" : "bootstrap",
+            "path" : "/bootstrap/css/bootstrap.min.css",
+            "attributes" : [
+                {
+                    "name" : "media",
+                    "value" : "screen"
+                }
+            ]
+        },
+        {
+            "name" : "main styles",
+            "path" : "/stylesheets/main.css"
+        },
+        {
+            "name" : "overrides",
+            "path" : "/stylesheets/overrides.css"
+        }
+    ],
+    "javascripts" : {
+        "header" : [],
+        "footer" : [
+            {
+                "name" : "Jquery",
+                "path" : "/javascripts/jquery.js"
+            },
+            {
+                "name" : "bootstrap",
+                "path" : "/bootstrap/js/bootstrap.min.js"
+            },
+            {
+                "name" : "Socket.io",
+                "path" : "/socket.io/socket.io.js"
+            },
+            {
+                "name" : "Main",
+                "path" : "/javascripts/main.js"
+            }
+        ]
+    },
+    "pages" : {
+        "home" : {
+            "title" : "Home",
+            "template" : "index",
+            "route" : "/"
+        },
+        "settings" : {
+            "title" : "Settings",
+            "template" : "cms/settings",
+            "route" : "/settings"
+        },
+        "about" : {
+            "title" : "About",
+            "template" : "cms/about",
+            "route" : "/about"
+        },
+        "test" : {
+            "title" : "Test",
+            "template" : "cms/test",
+            "route" : "/test"
+        }
+    }
+}
