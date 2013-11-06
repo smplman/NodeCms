@@ -4,7 +4,7 @@ $(document).ready(function(){
         text    = $('h1');
 
     $statusLight = $('[data-socket]');
-    console.log($statusLight);
+
     socket.on('connect', function () {
         //text.html('connected');
         $statusLight.removeClass();

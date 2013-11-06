@@ -5,5 +5,89 @@
 
 {% block content %}
 	<h1>{{title}}</h1>
-	<p>Here is the settings page!</p>
+	<p>Here is the settings page!!!!</p>
+
+	<form action="" method="post" class="">
+
+    		<div class="form-group">
+				<label class="" for="inputEmail">Name</label>
+			    <input type="text" class="form-control" id="inputEmail" value="{{app.name}}">
+			</div>
+
+    		<div class="form-group">
+				<label class="control-label" for="inputEmail">Title</label>
+				<input type="text" class="form-control" id="inputEmail" value="{{app.title}}">
+			</div>
+
+    		<div class="form-group">
+				<label class="control-label" for="inputEmail">Keywords</label>
+				<input type="text" class="form-control" id="inputEmail" value="{{app.keywords}}">
+			</div>
+
+    		<div class="form-group">
+				<label class="control-label" for="inputEmail">Description</label>
+				<input type="text" class="form-control" id="inputEmail" value="{{app.description}}">
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="inputEmail">Metas</label>
+				<ul>
+				{% for meta in app.metas %}
+					<li>{{meta.name}} = {{meta.content}}</li>
+				{% endfor %}
+				</ul>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="inputEmail">Stylesheets</label>
+				<ul>
+				{% for style in app.stylesheets %}
+					<li>{{style.name}} = {{style.path}}</li>
+					{% if style.attributes is defined and style.attributes is not empty %}
+						<label class="control-label" for="inputEmail">Attributes</label>
+						<ul>
+						{% for attr in style.attributes %}
+							<li>{{attr.name}} = {{attr.value}}</li>
+						{% endfor %}
+						</ul>
+					{% endif %}
+				{% endfor %}
+				</ul>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="inputEmail">Javascripts</label>
+				<h2>Header</h2>
+				<ul>
+				{% for script in app.javascripts.header %}
+					<li>{{script.name}} = {{script.path}}</li>
+				{% endfor %}
+				</ul>
+				<h2>Footer</h2>
+				<ul>
+				{% for script in app.javascripts.footer %}
+					<li>{{script.name}} = {{script.path}}</li>
+				{% endfor %}
+				</ul>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" for="inputEmail">Pages</label>
+				<ul>
+				{% for k,page in app.pages %}
+					<li>
+						<h3>{{page.title}}</h3>
+						<p>Name = {{k}}</p>
+						<p>Template = {{page.template}}</p>
+						<p>Route = {{page.route}}
+					</li>
+
+				{% endfor %}
+				</ul>
+			</div>
+
+    		<button type="submit" class="btn btn-default">Save</button>
+
+	</form>
+
 {% endblock %}

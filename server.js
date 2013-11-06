@@ -32,17 +32,13 @@ if ('development' == app.get('env')) {
 
 exports.listen = function () {
 	server.listen(3000);
-	appData = data.getAppData();
-	appData.find({},{},function(e,docs){
-	 	cmsData = docs[0];
-		app.get('/', routes.index(cmsData, cmsData.pages.home));
 
+	data.getCmsPages(function(pages) {
 		//Setup page routes
-		for(var page in cmsData.pages) {
-			p = cmsData.pages[page];
-			app.get(p.route, routes.index(cmsData, p));
+		for(var page in pages) {
+			p = pages[page];
+			app.get(p.route, routes.indexGet(p));
 		}
-
 	});
 
 	return server;
