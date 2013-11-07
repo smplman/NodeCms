@@ -24,8 +24,8 @@ $(document).ready(function(){
     $('[data-page]').click(function(e){
         e.preventDefault();
         el = $(e.target);
-        pageName = el.data('page');
-        socket.emit('page_request', {"name" : pageName});
+        route = el.attr('href');
+        socket.emit('page_request', {"route" : route});
     });
 
     var container = $('#container');

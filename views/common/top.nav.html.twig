@@ -12,8 +12,8 @@
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <!--         <li class="active"><a href="#">Home</a></li> -->
-        {% for key,page in app.pages %}
-           <li><a href="{{page.route}}" data-page="{{key}}">{{page.title}}</a></li>
+        {% for nav in app.navigation %}
+           <li><a href="{{nav.route}}" data-page="">{{nav.name}}</a></li>
         {% endfor %}
       </ul>
 

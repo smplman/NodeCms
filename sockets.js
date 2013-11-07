@@ -11,20 +11,19 @@ exports.listen = function (server, app) {
 
 	io.sockets.on('connection', function (socket) {
 
-	  	socket.on('page_request', function(page){
+	  	socket.on('page_request', function(reqData){
 
-	  		var name = page.name;
+	  		var route = reqData.route;
 
 	  		data.getCmsData(function(cmsData){
-	  			var page = cmsData.pages[name];
-		  		console.log("Page Requested: " + page);
-		  		data.getCmsPage(name, function(page){
-		  			console.log("Page Test" + page.title);
+		  		console.log("Route Requested: " + route);
+		  		data.getCmsPage(route, function(page){
+		  			app.render(page.template, {"app" : cmsData,"title" : page.title,"isSocket" : true}, function(err, html){
+			  			page.html = html;
+						socket.emit('page_response',page);
+					});
 		  		});
-		  		app.render(page.template, {"app" : cmsData,"title" : page.title,"isSocket" : true}, function(err, html){
-		  			page.html = html;
-					socket.emit('page_response',page);
-				});
+
 	  		});
 	  	});
 
