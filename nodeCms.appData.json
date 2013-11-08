@@ -1,22 +1,8 @@
 {
-    "name" : "Node CMS",
+    "name" : "Node CMS Updated",
     "title" : "Page Title - Node CMS",
     "keywords" : "single page, cms, node js",
     "description" : "A cms built on Node JS, MongoDb, and Express",
-    "metas" : [
-        {
-            "name" : "viewport",
-            "content" : "width=device-width, initial-scale=1.0"
-        },
-        {
-            "name" : "keywords",
-            "content" : "single page, cms, node js"
-        },
-        {
-            "name" : "description",
-            "content" : "A cms built on Node JS, MongoDb, and Express"
-        }
-    ],
     "stylesheets" : [
         {
             "name" : "bootstrap",
@@ -27,6 +13,14 @@
                     "value" : "screen"
                 }
             ]
+        },
+        {
+            "name" : "ui notify",
+            "path" : "/stylesheets/ui.notify.css"
+        },
+        {
+            "name" : "jquery ui",
+            "path" : "/jquery-ui/ui-darkness/jquery-ui-1.10.3.custom.css"
         },
         {
             "name" : "main styles",
@@ -45,39 +39,49 @@
                 "path" : "/javascripts/jquery.js"
             },
             {
+                "name" : "Jquery ui",
+                "path" : "/jquery-ui/js/jquery-ui-1.10.3.custom.js"
+            },
+            {
                 "name" : "bootstrap",
                 "path" : "/bootstrap/js/bootstrap.min.js"
             },
             {
-                "name" : "Socket.io",
+                "name" : "SocketIo",
                 "path" : "/socket.io/socket.io.js"
             },
             {
-                "name" : "Main",
+                "name" : "ui notify",
+                "path" : "/javascripts/jquery.notify.js"
+            },
+            {
+                "name" : "main",
                 "path" : "/javascripts/main.js"
             }
         ]
     },
-    "pages" : {
-        "home" : {
-            "title" : "Home",
-            "template" : "index",
+    "navigation" : [
+        {
+            "name" : "Home",
             "route" : "/"
         },
-        "settings" : {
-            "title" : "Settings",
-            "template" : "cms/settings",
+        {
+            "name" : "Settings",
             "route" : "/settings"
-        },
-        "about" : {
-            "title" : "About",
-            "template" : "cms/about",
-            "route" : "/about"
-        },
-        "test" : {
-            "title" : "Test",
-            "template" : "cms/test",
-            "route" : "/test"
         }
-    }
+    ],
+    "metas" : [
+        {
+            "name" : "viewport",
+            "content" : "width=device-width, initial-scale=1.0"
+        },
+        {
+            "name" : "keywords",
+            "content" : "single page, cms, node js"
+        },
+        {
+            "name" : "description",
+            "content" : "A cms built on Node JS, MongoDb, and Express"
+        }
+    ]
 }

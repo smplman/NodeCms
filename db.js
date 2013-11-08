@@ -46,3 +46,15 @@ exports.insertCmsPage = function(page, callback) {
 		callback && callback(doc);
 	});
 }
+
+exports.updateCmsData = function(cmsData, callback) {
+	// appData.updateById(cmsData._id, cmsData, function(e,doc){
+	// 	socket.socketEmit('server-alert', 'CMS Settings Updated!');
+	// 	callback && callback(doc);
+	// });
+
+	appData.findAndModify({ _id: cmsData._id }, { $set: cmsData }, function(e,doc){
+		socket.socketEmit('server-alert', 'CMS Settings Updated!');
+		callback && callback(doc);
+	});
+}

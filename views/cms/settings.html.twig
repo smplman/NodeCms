@@ -6,139 +6,288 @@
 {% block content %}
 	<h1>{{title}}</h1>
 
-	<div class="container">
-		<form action="/new/page" method="socket" class="jumbotron" data-form="newCmsPage">
-			<h2>CMS Pages</h2>
-			<table class="table">
-				<thead>
+	{# CMS Settings #}
+	<form action="/cms/update/settings" method="socket" class="highlight form-horizontal" data-form="updateCmsSettings" role="form">
+		<h3>CMS Settings</h3>
+
+	    <div class="form-group">
+			<label class="col-sm-1 control-label">Name</label>
+			<div class="col-sm-11">
+	    		<input type="text" class="form-control" name="name" value="{{app.name}}">
+	    	</div>
+    	</div>
+
+	    <div class="form-group">
+			<label class="col-sm-1 control-label">Title</label>
+			<div class="col-sm-11">
+	    		<input type="text" class="form-control" name="title" value="{{app.title}}">
+	    	</div>
+    	</div>
+
+	    <div class="form-group">
+			<label class="col-sm-1 control-label">Keywords</label>
+			<div class="col-sm-11">
+	    		<input type="text" class="form-control" name="keywords" value="{{app.keywords}}">
+	    	</div>
+    	</div>
+
+	    <div class="form-group">
+			<label class="col-sm-1 control-label">Description</label>
+			<div class="col-sm-11">
+	    		<input type="text" class="form-control" name="description" value="{{app.description}}">
+	    	</div>
+    	</div>
+
+    	<input type="hidden" name="_id" value="{{app._id}}">
+    	<button type="submit" class="btn btn-default">Update</button>
+	</form>
+
+	{# CMS Pages #}
+	<form action="/cms/new/page" method="socket" class="highlight form-horizontal" data-form="newCmsPage" role="form">
+		<h2>CMS Pages</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>_id</th>
+					<th>Name</th>
+					<th>Title</th>
+					<th>Template</th>
+					<th>Route</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for page in pages %}
+			<tr id="{{page._id}}">
+				<td>{{page._id}}</td>
+				<td>{{page.name}}</td>
+				<td>{{page.title}}</td>
+				<td>{{page.template}}</td>
+				<td>{{page.route}}</td>
+			</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+
+		<h3>New CMS Page</h3>
+
+	    <div class="form-group">
+			<label class="col-sm-1 control-label">Name</label>
+			<div class="col-sm-11">
+	    		<input type="text" class="form-control" id="" name="name" value="">
+	    	</div>
+    	</div>
+
+    	<div class="form-group">
+    	  <label class="col-sm-1 control-label">Title</label>
+    	  <div class="col-sm-11">
+    	    <input type="text" class="form-control" id="" name="title" value="">
+    	  </div>
+    	</div>
+
+    	<div class="form-group">
+    	  <label class="col-sm-1 control-label">Template</label>
+    	  <div class="col-sm-11">
+    	    <input type="text" class="form-control" id="" name="template" value="">
+    	  </div>
+    	</div>
+
+    	<div class="form-group">
+    	  <label class="col-sm-1 control-label">Route</label>
+    	  <div class="col-sm-11">
+    	    <input type="text" class="form-control" id="" name="route" value="">
+    	  </div>
+    	</div>
+
+		<button type="submit" class="btn btn-default">Add</button>
+	</form>
+
+	{# CMS Navigation #}
+	<form action="/cms/update/navigation" method="socket" class="highlight form-horizontal" data-form="updateCmsNavigation" role="form">
+		<h2>CMS Navigation</h2>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Route</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for nav in app.navigation %}
 					<tr>
-						<th>_id</th>
-						<th>Name</th>
-						<th>Title</th>
-						<th>Template</th>
-						<th>Route</th>
+						<td>{{nav.name}}</td>
+						<td>{{nav.route}}</td>
 					</tr>
-				</thead>
-				<tbody>
-				{% for page in pages %}
-				<tr id="{{page._id}}">
-					<td>{{page._id}}</td>
-					<td>{{page.name}}</td>
-					<td>{{page.title}}</td>
-					<td>{{page.template}}</td>
-					<td>{{page.route}}</td>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	    <div class="form-group">
+			<label class="col-sm-1 control-label">Name</label>
+			<div class="col-sm-11">
+	    		<input type="text" class="form-control" id="" name="name" value="">
+	    	</div>
+		</div>
+
+		<div class="form-group">
+		  <label class="col-sm-1 control-label">Route</label>
+		  <div class="col-sm-11">
+		    <input type="text" class="form-control" id="" name="route" value="">
+		  </div>
+		</div>
+
+		<input type="hidden" name="_id" value="{{app._id}}">
+		<button type="submit" class="btn btn-default">Add</button>
+	</form>
+
+	{# CMS Meta Tags #}
+	<form action="/cms/update/metas" method="socket" class="highlight form-horizontal" data-form="updateCmsMetas" role="form">
+		<h2>CMS Meta Tags</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Value</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for meta in app.metas %}
+				<tr>
+					<td>{{meta.name}}</td>
+					<td>{{meta.content}}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+
+		<h3>Add CMS Meta</h3>
+
+	    <div class="form-group">
+			<label class="col-sm-1 control-label">Name</label>
+			<div class="col-sm-11">
+	    		<input type="text" class="form-control" id="" name="name" value="">
+	    	</div>
+    	</div>
+
+    	<div class="form-group">
+    	  <label class="col-sm-1 control-label">Value</label>
+    	  <div class="col-sm-11">
+    	    <input type="text" class="form-control" id="" name="content" value="">
+    	  </div>
+    	</div>
+
+    	<input type="hidden" name="_id" value="{{app._id}}">
+		<button type="submit" class="btn btn-default">Add</button>
+	</form>
+
+	{# CMS Stylesheets #}
+	<form action="/cms/update/stylesheets" method="socket" class="highlight form-horizontal" data-form="updateCmsStylesheets" role="form">
+		<h2>CMS Stylesheets</h2>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Path</th>
+					<th>Attributes</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for style in app.stylesheets %}
+				<tr>
+					<td>{{style.name}}</td>
+					<td>{{style.path}}</td>
+					<td>
+					{% if style.attributes is defined and style.attributes is not empty %}
+						{% for attr in style.attributes %}
+							<span>{{attr.name}} = {{attr.value}}</span>
+						{% endfor %}
+					{% endif %}
+					</td>
+				</tr>
+
+			{% endfor %}
+			</tbody>
+		</table>
+
+		<h3>Add CMS Stylesheet</h3>
+
+	    <div class="form-group">
+			<label class="col-sm-1 control-label">Name</label>
+			<div class="col-sm-11">
+	    		<input type="text" class="form-control" id="" name="name" value="">
+	    	</div>
+		</div>
+
+		<div class="form-group">
+		  <label class="col-sm-1 control-label">Path</label>
+		  <div class="col-sm-11">
+		    <input type="text" class="form-control" id="" name="path" value="">
+		  </div>
+		</div>
+
+		<input type="hidden" name="_id" value="{{app._id}}">
+		<button type="submit" class="btn btn-default">Add</button>
+
+	</form>
+
+	{# CMS Javascripts #}
+	<form action="/cms/update/javascripts" method="socket" class="highlight form-horizontal" data-form="updateCmsJavascripts" role="form">
+		<h2>CMS Javascripts</h2>
+
+		<h3>Header</h3>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Path</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for script in app.javascripts.header %}
+				<tr>
+					<td>{{script.name}}</td>
+					<td>{{script.path}}</td>
 				</tr>
 				{% endfor %}
-				</tbody>
-			</table>
+			</tbody>
+		</table>
 
-			<h3>New CMS Page</h3>
-		    <div class="form-group">
-				<label class="" for="inputEmail">Title</label>
-			    <input type="text" class="form-control" id="" name="title" value="">
-				<label class="" for="inputEmail">Template</label>
-			    <input type="text" class="form-control" id="" name="template" value="">
-			    <label class="" for="inputEmail">Route</label>
-			    <input type="text" class="form-control" id="" name="route" value="">
-			</div>
-
-			<button type="submit" class="btn btn-default">Save</button>
-		</form>
-	</div>
-
-	<form action="" method="post" class="" data-form="saveCmsSettings">
-
-    		<div class="form-group">
-				<label class="" for="inputEmail">Name</label>
-			    <input type="text" class="form-control" id="inputEmail" name="name" value="{{app.name}}">
-			</div>
-
-    		<div class="form-group">
-				<label class="control-label" for="inputEmail">Title</label>
-				<input type="text" class="form-control" id="inputEmail" name="title" value="{{app.title}}">
-			</div>
-
-    		<div class="form-group">
-				<label class="control-label" for="inputEmail">Keywords</label>
-				<input type="text" class="form-control" id="inputEmail" name="keywords" value="{{app.keywords}}">
-			</div>
-
-    		<div class="form-group">
-				<label class="control-label" for="inputEmail">Description</label>
-				<input type="text" class="form-control" id="inputEmail" name="description" value="{{app.description}}">
-			</div>
-
-			<div class="form-group">
-				<label class="control-label" for="inputEmail">Metas</label>
-				<ul>
-				{% for meta in app.metas %}
-					<li>{{meta.name}} = {{meta.content}}</li>
-				{% endfor %}
-				</ul>
-			</div>
-
-			<div class="form-group">
-				<label class="control-label" for="inputEmail">Stylesheets</label>
-				<ul>
-				{% for style in app.stylesheets %}
-					<li>{{style.name}} = {{style.path}}</li>
-					{% if style.attributes is defined and style.attributes is not empty %}
-						<label class="control-label" for="inputEmail">Attributes</label>
-						<ul>
-						{% for attr in style.attributes %}
-							<li>{{attr.name}} = {{attr.value}}</li>
-						{% endfor %}
-						</ul>
-					{% endif %}
-				{% endfor %}
-				</ul>
-			</div>
-
-			<div class="form-group">
-				<label class="control-label" for="inputEmail">Javascripts</label>
-				<h2>Header</h2>
-				<ul>
-				{% for script in app.javascripts.header %}
-					<li>{{script.name}} = {{script.path}}</li>
-				{% endfor %}
-				</ul>
-				<h2>Footer</h2>
-				<ul>
+		<h3>Footer</h3>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Path</th>
+				</tr>
+			</thead>
+			<tbody>
 				{% for script in app.javascripts.footer %}
-					<li>{{script.name}} = {{script.path}}</li>
+				<tr>
+					<td>{{script.name}}</td>
+					<td>{{script.path}}</td>
+				</tr>
 				{% endfor %}
-				</ul>
-			</div>
+			</tbody>
+		</table>
 
-			<div class="form-group">
-				<label class="control-label" for="inputEmail">Pages</label>
-				<ul>
-				{% for page in pages %}
-					<li>
-						<h3>{{page.title}}</h3>
-						<p>Name = {{page.name}}</p>
-						<p>Template = {{page.template}}</p>
-						<p>Route = {{page.route}}
-					</li>
+		<h3>Add CMS Javascript</h3>
 
-				{% endfor %}
-				</ul>
-			</div>
+	    <div class="form-group">
+			<label class="col-sm-1 control-label">Name</label>
+			<div class="col-sm-11">
+	    		<input type="text" class="form-control" id="" name="name" value="">
+	    	</div>
+		</div>
 
-			<div class="form-group">
-				<label class="control-label" for="inputEmail">Navigation</label>
-				<ul>
-				{% for nav in app.navigation %}
-					<li>
-						<h3>{{nav.name}}</h3>
-						<p>Route = {{nav.route}}
-					</li>
+		<div class="form-group">
+		  <label class="col-sm-1 control-label">Path</label>
+		  <div class="col-sm-11">
+		    <input type="text" class="form-control" id="" name="path" value="">
+		  </div>
+		</div>
 
-				{% endfor %}
-				</ul>
-			</div>
-			<input type="hidden" name="id" value="{{app._id}}">
-    		<button type="submit" class="btn btn-default">Save</button>
+		<input type="hidden" name="_id" value="{{app._id}}">
+		<button type="submit" class="btn btn-default">Add</button>
 
 	</form>
 

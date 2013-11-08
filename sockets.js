@@ -33,6 +33,12 @@ exports.listen = function (server, app) {
 	  		//console.log(pageData);
 	  	});
 
+	  	socket.on('updateCmsSettings', function(cmsData){
+	  		data.updateCmsData(cmsData, function(cms){
+	  			console.log('Updated CMS Settings: ', cms)
+	  		});
+	  	});
+
 	});
 
 	return io;
