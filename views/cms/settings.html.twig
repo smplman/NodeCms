@@ -5,28 +5,67 @@
 
 {% block content %}
 	<h1>{{title}}</h1>
-	<p>Here is the settings page!!!!</p>
 
-	<form action="" method="post" class="">
+	<div class="container">
+		<form action="/new/page" method="socket" class="jumbotron" data-form="newCmsPage">
+			<h2>CMS Pages</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>_id</th>
+						<th>Name</th>
+						<th>Title</th>
+						<th>Template</th>
+						<th>Route</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for page in pages %}
+				<tr id="{{page._id}}">
+					<td>{{page._id}}</td>
+					<td>{{page.name}}</td>
+					<td>{{page.title}}</td>
+					<td>{{page.template}}</td>
+					<td>{{page.route}}</td>
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+
+			<h3>New CMS Page</h3>
+		    <div class="form-group">
+				<label class="" for="inputEmail">Title</label>
+			    <input type="text" class="form-control" id="" name="title" value="">
+				<label class="" for="inputEmail">Template</label>
+			    <input type="text" class="form-control" id="" name="template" value="">
+			    <label class="" for="inputEmail">Route</label>
+			    <input type="text" class="form-control" id="" name="route" value="">
+			</div>
+
+			<button type="submit" class="btn btn-default">Save</button>
+		</form>
+	</div>
+
+	<form action="" method="post" class="" data-form="saveCmsSettings">
 
     		<div class="form-group">
 				<label class="" for="inputEmail">Name</label>
-			    <input type="text" class="form-control" id="inputEmail" value="{{app.name}}">
+			    <input type="text" class="form-control" id="inputEmail" name="name" value="{{app.name}}">
 			</div>
 
     		<div class="form-group">
 				<label class="control-label" for="inputEmail">Title</label>
-				<input type="text" class="form-control" id="inputEmail" value="{{app.title}}">
+				<input type="text" class="form-control" id="inputEmail" name="title" value="{{app.title}}">
 			</div>
 
     		<div class="form-group">
 				<label class="control-label" for="inputEmail">Keywords</label>
-				<input type="text" class="form-control" id="inputEmail" value="{{app.keywords}}">
+				<input type="text" class="form-control" id="inputEmail" name="keywords" value="{{app.keywords}}">
 			</div>
 
     		<div class="form-group">
 				<label class="control-label" for="inputEmail">Description</label>
-				<input type="text" class="form-control" id="inputEmail" value="{{app.description}}">
+				<input type="text" class="form-control" id="inputEmail" name="description" value="{{app.description}}">
 			</div>
 
 			<div class="form-group">
@@ -74,10 +113,10 @@
 			<div class="form-group">
 				<label class="control-label" for="inputEmail">Pages</label>
 				<ul>
-				{% for k,page in app.pages %}
+				{% for page in pages %}
 					<li>
 						<h3>{{page.title}}</h3>
-						<p>Name = {{k}}</p>
+						<p>Name = {{page.name}}</p>
 						<p>Template = {{page.template}}</p>
 						<p>Route = {{page.route}}
 					</li>
@@ -98,7 +137,7 @@
 				{% endfor %}
 				</ul>
 			</div>
-
+			<input type="hidden" name="id" value="{{app._id}}">
     		<button type="submit" class="btn btn-default">Save</button>
 
 	</form>

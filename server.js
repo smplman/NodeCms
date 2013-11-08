@@ -16,6 +16,7 @@ var data = require('./db');
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html.twig');
+//app.disable('view cache');
 app.engine('html.twig', twig.__express);
 app.use(express.favicon());
 app.use(express.logger('dev'));

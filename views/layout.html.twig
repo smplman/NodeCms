@@ -51,6 +51,16 @@
 		{% include "common/footer.html.twig" %}
 	{% endblock footer %}
 
+	{% block notificationWidget %}
+		<div style="display:none;margin-top:50px;" data-widget="notificationWidget">
+		  <div id="server-alert">
+		      <a class="ui-notify-cross ui-notify-close" href="#">x</a>
+		      <h1>Server Notice</h1>
+		      <p>#{notice}</p>
+		  </div>
+		</div>
+	{% endblock notificationWidget %}
+
 
 	{# Footer Javascripts #}
 	{% block footerJavascripts %}
