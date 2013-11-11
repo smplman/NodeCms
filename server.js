@@ -2,9 +2,10 @@
 /*
  * Express Server
  */
-var app = require('express')();
+var app = require('express.io')();
 var express = require('express');
 var server = require('http').createServer(app);
+var socket = require('./sockets');
 
 var routes = require('./routes');
 var path = require('path');
@@ -33,11 +34,23 @@ if ('development' == app.get('env')) {
 exports.listen = function () {
 	server.listen(3000);
 
-	data.getCmsPages(function(pages){
-		for(var i = 0;i < pages.length;i++) {
-			p = pages[i];
-			if (p.route) {
-				app.get(p.route, routes.indexGet(p));
+	// data.getCmsPages(function(pages){
+	// 	for(var i = 0;i < pages.length;i++) {
+	// 		p = pages[i];
+	// 		if (p.route) {
+	// 			app.get(p.route, routes.indexGet(p));
+	// 		}
+	// 	}
+	// });
+
+	data.getCmsRoutes(function(routeData){
+		for(var i = 0;i < routeData.length;i++) {
+			r = routeData[i];
+			if (r) {
+				//action = eval("routes." + r.action + "()");
+				//console.log(r, action);
+				app.get(r.pattern, routes[r.action]());
+				//app.io.route(r.pattern, routes[r.action]());
 			}
 		}
 	});

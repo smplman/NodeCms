@@ -6,6 +6,15 @@ var socketio = require('socket.io');
 var data = require('./db');
 var io = null;
 
+// Sends the message or event to every connected user in the current namespace, except to your self.
+// socket.broadcast.emit('Hi, a new user connected');
+
+// Sends the message or event to every connected user in the current namespace
+// io.sockets.emit('Hi all');
+
+// Sends the message to one user
+// socket.emit('news', {data:'data'});
+
 exports.listen = function (server, app) {
 
 	io = socketio.listen(server);
@@ -36,6 +45,18 @@ exports.listen = function (server, app) {
 	  	socket.on('updateCmsSettings', function(cmsData){
 	  		data.updateCmsData(cmsData, function(cms){
 	  			console.log('Updated CMS Settings: ', cms)
+	  		});
+	  	});
+
+	  	socket.on('updateCmsPage', function(pageData){
+	  		data.updateCmsPage(pageData, function(page){
+	  			console.log('Updated CMS Page: ', page)
+	  		});
+	  	});
+
+	  	socket.on('updateCmsNavigation', function(navData){
+	  		data.updateCmsNavigation(navData, function(cms){
+	  			console.log('Updated CMS Navigation: ', cms)
 	  		});
 	  	});
 

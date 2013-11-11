@@ -56,7 +56,50 @@ $(document).ready(function(){
         formAction = form.data('form');
         formData = form.serializeObject();
         socket.emit(formAction, formData);
-        console.log(formData);
+        console.log(formAction, formData);
+    });
+
+    //Form element edit setup
+    editItems = $('[data-edit]');
+    editItems.dblclick(function(){
+        var item = $(this);
+        if(item.hasClass('editing')){return false;}
+        saveBtn = item.find('[data-save]');
+        saveBtn.removeClass('disabled');
+        item.addClass('editing');
+        itemAction = item.data('edit');
+        fields = item.find('[data-field]');
+        $.each(fields, function(i, field){
+            field = $(field);
+            value = field.text();
+            name = field.data('field');
+            if(name == '_id'){return;}
+            formEl = '<input type="text" class="form-control" name="'+ name + '" value="'+ value +'">';
+            field.html(formEl);
+        });
+
+    });
+    //Save button setup
+    $.each(editItems, function (i, el){
+        el = $(el);
+        var saveBtn = el.find('[data-save]');
+
+        saveBtn.on('click', function(e){
+            e.preventDefault();
+            btn = $(e.target);
+            data = el.find('input').serializeObject();
+            socket.emit(itemAction, data);
+            console.log(itemAction, data);
+
+            el.removeClass('editing');
+            saveBtn.addClass('disabled');
+
+            $.each(fields, function(i, field){
+                field = $(field);
+                value = field.find('input').val();
+                field.html(value);
+            });
+        });
     });
 });
 

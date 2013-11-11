@@ -53,17 +53,34 @@
 					<th>Title</th>
 					<th>Template</th>
 					<th>Route</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 			{% for page in pages %}
-			<tr id="{{page._id}}">
-				<td>{{page._id}}</td>
-				<td>{{page.name}}</td>
-				<td>{{page.title}}</td>
-				<td>{{page.template}}</td>
-				<td>{{page.route}}</td>
+			<tr id="{{page._id}}" data-edit="updateCmsPage">
+
+				<td data-field="_id">{{page._id}}</td>
+				<td data-field="name">{{page.name}}</td>
+				<td data-field="title">{{page.title}}</td>
+				<td data-field="template">{{page.template}}</td>
+				<td data-field="route">{{page.route}}</td>
+
+				<td>
+					<div class="btn-group">
+					  <button type="button" class="btn btn-default btn-sm disabled" data-save>
+					  	<span class="glyphicon glyphicon-floppy-disk"></span>
+					 </button>
+					  <button type="button" class="btn btn-default btn-sm" data-delete>
+					  	<span class="glyphicon glyphicon-ban-circle"></span>
+					  </button>
+					</div>
+
+					<input type="hidden" name="_id" value="{{page._id}}">
+				</td>
+
 			</tr>
+
 			{% endfor %}
 			</tbody>
 		</table>
@@ -101,22 +118,101 @@
 		<button type="submit" class="btn btn-default">Add</button>
 	</form>
 
+	{# CMS Routes #}
+	<form action="/cms/new/page" method="socket" class="highlight form-horizontal" data-form="newCmsRoute" role="form">
+		<h2>CMS Routes</h2>
+
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Patern</th>
+					<th>Action</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for route in app.routes %}
+					<tr data-edit="updateCmsRoute">
+						<td data-field="name">{{route.name}}</td>
+						<td data-field="pattern">{{route.pattern}}</td>
+						<td data-field="action">{{route.action}}</td>
+
+						<td>
+							<div class="btn-group">
+							  <button type="button" class="btn btn-default btn-sm disabled" data-save>
+							  	<span class="glyphicon glyphicon-floppy-disk"></span>
+							 </button>
+							  <button type="button" class="btn btn-default btn-sm" data-delete>
+							  	<span class="glyphicon glyphicon-ban-circle"></span>
+							  </button>
+							</div>
+
+							<input type="hidden" name="_id" value="{{app._id}}">
+						</td>
+
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<h3>New CMS Route</h3>
+
+	    <div class="form-group">
+			<label class="col-sm-1 control-label">Name</label>
+			<div class="col-sm-11">
+	    		<input type="text" class="form-control" id="" name="name" value="">
+	    	</div>
+    	</div>
+
+    	<div class="form-group">
+    	  <label class="col-sm-1 control-label">Pattern</label>
+    	  <div class="col-sm-11">
+    	    <input type="text" class="form-control" id="" name="pattern" value="">
+    	  </div>
+    	</div>
+
+    	<div class="form-group">
+    	  <label class="col-sm-1 control-label">Action</label>
+    	  <div class="col-sm-11">
+    	    <input type="text" class="form-control" id="" name="action" value="">
+    	  </div>
+    	</div>
+
+		<button type="submit" class="btn btn-default">Add</button>
+	</form>
+
 	{# CMS Navigation #}
 	<form action="/cms/update/navigation" method="socket" class="highlight form-horizontal" data-form="updateCmsNavigation" role="form">
 		<h2>CMS Navigation</h2>
 
-		<table class="table">
+		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>Name</th>
 					<th>Route</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				{% for nav in app.navigation %}
-					<tr>
-						<td>{{nav.name}}</td>
-						<td>{{nav.route}}</td>
+					<tr data-edit="updateCmsNavigation">
+						<td data-field="name">{{nav.name}}</td>
+						<td data-field="route">{{nav.route}}</td>
+
+						<td>
+							<div class="btn-group">
+							  <button type="button" class="btn btn-default btn-sm disabled" data-save>
+							  	<span class="glyphicon glyphicon-floppy-disk"></span>
+							 </button>
+							  <button type="button" class="btn btn-default btn-sm" data-delete>
+							  	<span class="glyphicon glyphicon-ban-circle"></span>
+							  </button>
+							</div>
+
+							<input type="hidden" name="_id" value="{{app._id}}">
+						</td>
+
 					</tr>
 				{% endfor %}
 			</tbody>

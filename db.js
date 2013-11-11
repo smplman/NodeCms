@@ -21,14 +21,37 @@ exports.getCmsData = function (callback) {
   	});
 }
 
-//CmsPages Collection
+exports.updateCmsData = function(cmsData, callback) {
+	id = cmsData._id;
+	delete cmsData._id;
+	appData.update({ _id: id }, { $set: cmsData }, function(e,doc){
+		socket.socketEmit('server-alert', 'CMS Settings Updated!');
+		callback && callback(doc);
+	});
+}
 
+exports.updateCmsNavigation = function(navData, callback) {
+	id = navData._id;
+	delete navData._id;
+	appData.update({ _id: id, "navigation.name" : navData.name }, { $set: { "navigation.$" : navData } }, function(e,doc){
+		socket.socketEmit('server-alert', 'CMS Settings Updated!');
+		callback && callback(doc);
+	});
+}
+
+exports.getCmsRoutes = function(callback) {
+	this.getCmsData(function(cmsData){
+		callback && callback(cmsData.routes);
+	});
+}
+
+//CmsPages Collection
 exports.getCmsPageData = function () {
 	return pageData;
 }
 
 exports.getCmsPages = function (callback) {
-	pageData.find({},{},function(e,docs){
+	pageData.find({},{$orderby: { age : 1 }},function(e,docs){
 		callback && callback(docs);
   	});
 }
@@ -41,20 +64,18 @@ exports.getCmsPage = function (route, callback) {
 }
 
 exports.insertCmsPage = function(page, callback) {
+	page._id = pageData.id();
 	pageData.insert(page, function(e,doc){
 		socket.socketEmit('server-alert', 'New CMS Page Added!');
 		callback && callback(doc);
 	});
 }
 
-exports.updateCmsData = function(cmsData, callback) {
-	// appData.updateById(cmsData._id, cmsData, function(e,doc){
-	// 	socket.socketEmit('server-alert', 'CMS Settings Updated!');
-	// 	callback && callback(doc);
-	// });
-
-	appData.findAndModify({ _id: cmsData._id }, { $set: cmsData }, function(e,doc){
-		socket.socketEmit('server-alert', 'CMS Settings Updated!');
+exports.updateCmsPage = function(page, callback) {
+	id = page._id;
+	delete page._id;
+	pageData.update({ _id: id }, { $set: page }, function(e,doc){
+		socket.socketEmit('server-alert', 'CMS Page Updated!');
 		callback && callback(doc);
 	});
 }
