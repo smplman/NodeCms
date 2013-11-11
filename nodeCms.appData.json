@@ -1,36 +1,5 @@
 {
-    "name" : "Node CMS Updated",
-    "title" : "Page Title - Node CMS",
-    "keywords" : "single page, cms, node js",
     "description" : "A cms built on Node JS, MongoDb, and Express",
-    "stylesheets" : [
-        {
-            "name" : "bootstrap",
-            "path" : "/bootstrap/css/bootstrap.min.css",
-            "attributes" : [
-                {
-                    "name" : "media",
-                    "value" : "screen"
-                }
-            ]
-        },
-        {
-            "name" : "ui notify",
-            "path" : "/stylesheets/ui.notify.css"
-        },
-        {
-            "name" : "jquery ui",
-            "path" : "/jquery-ui/ui-darkness/jquery-ui-1.10.3.custom.css"
-        },
-        {
-            "name" : "main styles",
-            "path" : "/stylesheets/main.css"
-        },
-        {
-            "name" : "overrides",
-            "path" : "/stylesheets/overrides.css"
-        }
-    ],
     "javascripts" : {
         "header" : [],
         "footer" : [
@@ -60,16 +29,7 @@
             }
         ]
     },
-    "navigation" : [
-        {
-            "name" : "Home",
-            "route" : "/"
-        },
-        {
-            "name" : "Settings",
-            "route" : "/settings"
-        }
-    ],
+    "keywords" : "single page, cms, node js",
     "metas" : [
         {
             "name" : "viewport",
@@ -83,5 +43,61 @@
             "name" : "description",
             "content" : "A cms built on Node JS, MongoDb, and Express"
         }
-    ]
+    ],
+    "name" : "Node CMS",
+    "navigation" : [
+        {
+            "name" : "Home",
+            "route" : "/"
+        },
+        {
+            "name" : "Settings",
+            "route" : "/settings"
+        },
+        {
+            "name" : "About",
+            "route" : "/about"
+        }
+    ],
+    "routes" : [
+        {
+            "name" : "index",
+            "pattern" : "/",
+            "action" : "indexAction"
+        },
+        {
+            "name" : "settings",
+            "pattern" : "/settings",
+            "action" : "settingsAction"
+        }
+    ],
+    "stylesheets" : [
+        {
+            "name" : "bootstrap",
+            "path" : "/bootstrap/css/bootstrap.min.css",
+            "attributes" : [
+                {
+                    "name" : "media",
+                    "value" : "screen"
+                }
+            ]
+        },
+        {
+            "name" : "ui notify",
+            "path" : "/stylesheets/ui.notify.css"
+        },
+        {
+            "name" : "jquery ui",
+            "path" : "/jquery-ui/ui-darkness/jquery-ui-1.10.3.custom.css"
+        },
+        {
+            "name" : "main styles",
+            "path" : "/stylesheets/main.css"
+        },
+        {
+            "name" : "overrides",
+            "path" : "/stylesheets/overrides.css"
+        }
+    ],
+    "title" : "Page Title - Node CMS"
 }
