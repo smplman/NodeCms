@@ -43,7 +43,8 @@ $(document).ready(function(){
         e.preventDefault();
         el = $(e.target);
         route = el.attr('href');
-        socket.emit('page_request', {"route" : route});
+        //socket.emit('page_request', {"route" : route});
+        socket.emit('page_request:' + route);
         note.notify("create", "server-alert", {
             notice: route + " requested"
         });

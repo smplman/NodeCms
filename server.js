@@ -3,7 +3,7 @@
  * Express Server
  */
 var app = require('express.io')();
-var express = require('express');
+var express = require('express.io');
 var server = require('http').createServer(app);
 var socket = require('./sockets');
 
@@ -51,6 +51,7 @@ exports.listen = function () {
 				//console.log(r, action);
 				app.get(r.pattern, routes[r.action]());
 				//app.io.route(r.pattern, routes[r.action]());
+				console.log(app.io);
 			}
 		}
 	});

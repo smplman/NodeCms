@@ -20,28 +20,56 @@ exports.indexGet = function(page) {
 };
 
 //exports.indexPost = function
-exports.indexAction = function(callback){
+exports.indexAction = function(app){
 	return function(req, res) {
 		data.getCmsData(function(cmsData){
-			res.render('index.html.twig', {
-				"app" : cmsData,
-				"title" : "Index",
-				"isSocket" : false,
+			data.getCmsPage('/', function(page){
+				tplData = {
+						"app" : cmsData,
+						"title" : "Index",
+						"isSocket" : false,
+						"page" : page
+
+				};
+				if(res) {
+					res.render('index.html.twig', tplData);
+				} else {
+						tplData.isSocket = true;
+			  			app.render(page.template, tplData, function(err, html){
+				  			page.html = html;
+				  			console.log('Page Response:', page);
+							req.io.emit('page_response',page);
+						});
+
+				}
 			});
 		});
 	};
 };
 
-exports.settingsAction = function(callback){
+exports.settingsAction = function(app){
 	return function(req, res) {
 		data.getCmsData(function(cmsData){
 			data.getCmsPages(function(pages){
-				res.render('cms/settings.html.twig', {
-		  	        "app" : cmsData,
-		  	        "title" : "Settings",
-		  	        "isSocket" : false,
-		  	        "pages" : pages
-		  	    });
+				data.getCmsPage('/settings', function(page){
+					tplData = {
+				  	        "app" : cmsData,
+				  	        "title" : "Settings",
+				  	        "isSocket" : false,
+				  	        "pages" : pages
+				  	};
+
+					if (res) {
+						res.render('cms/settings.html.twig', tplData);
+					} else {
+						tplData.isSocket = true;
+						app.render('cms/settings.html.twig', tplData, function(err, html){
+				  			page.html = html;
+				  			console.log('Page Response:', page);
+							req.io.emit('page_response',page);
+						});
+					}
+				});
 			});
 		});
 	};
