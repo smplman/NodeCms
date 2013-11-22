@@ -20,7 +20,9 @@ exports.listen = function (server, app) {
 	io = socketio.listen(server);
 
 	io.sockets.on('connection', function (socketCon) {
+
 		var socket = socketCon;
+
 	  	socket.on('page_request', function(reqData){
 	  		var route = reqData.route;
 	  		data.getCmsData(function(cmsData){
@@ -39,7 +41,6 @@ exports.listen = function (server, app) {
 	  			console.log('We have a new page: ', page);
 	  			//socket.broadcast.emit('server-alert', 'New CMS Page Added!');
 	  		});
-	  		//console.log(pageData);
 	  	});
 
 	  	socket.on('updateCmsSettings', function(cmsData){

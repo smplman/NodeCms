@@ -4,7 +4,6 @@
 	{% block head %}
 
 	    <title>{% block title %}{{app.title|default('')}}{% endblock %}</title>
-
 	    {# Metas #}
 	    {% block metas %}
 		    {% if app.metas is defined and app.metas is not empty %}
@@ -21,20 +20,33 @@
 		    		<link rel="stylesheet" href="{{style.path}}" {% if style.attributes is defined%}{% for attr in style.attributes%} {{attr.name}}="{{attr.value}}" {% endfor %}{% endif %}/>
 		    	{% endfor %}
 		    {% endif %}
+			{% if page.stylesheets is defined and page.stylesheets is not empty %}
+		    	{% for style in page.stylesheets %}
+		    		<link rel="stylesheet" href="{{style.path}}" {% if style.attributes is defined%}{% for attr in style.attributes%} {{attr.name}}="{{attr.value}}" {% endfor %}{% endif %}/>
+		    	{% endfor %}
+		    {% endif %}
 	    {% endblock stylesheets %}
 
 	    {# Header Javascripts #}
 	    {% block headerJavascripts %}
-		    {% if app.javascripts.header is defined and app.javascripts.header is not empty %}
+
+	    	<script data-main="/javascripts/main" src="/javascripts/require.js"></script>
+
+		    {#% if app.javascripts.header is defined and app.javascripts.header is not empty %}
 		    	{% for script in app.javascripts.header %}
 		    		<script type="text/javascript" src="{{script.path}}"></script>
 		    	{% endfor %}
 		    {% endif %}
+			{% if page.javascripts.header is defined and page.javascripts.header is not empty %}
+		    	{% for script in page.javascripts.header %}
+		    		<script type="text/javascript" src="{{script.path}}"></script>
+		    	{% endfor %}
+		    {% endif %#}
 	    {% endblock headerJavascripts %}
 
 	{% endblock head %}
 </head>
-<body>
+<body {% block page_data %}data-page="{{page|json_encode()|escape('js')}}"{% endblock page_data %}>
 	{% block topNav %}
 		{% include "common/top.nav.html.twig" %}
 	{% endblock topNav %}
@@ -63,12 +75,17 @@
 
 
 	{# Footer Javascripts #}
-	{% block footerJavascripts %}
+	{#% block footerJavascripts %}
 		{% if app.javascripts.footer is defined and app.javascripts.footer is not empty %}
 			{% for script in app.javascripts.footer %}
 				<script type="text/javascript" src="{{script.path}}"></script>
 			{% endfor %}
 		{% endif %}
-	{% endblock footerJavascripts %}
+		{% if page.javascripts.footer is defined and page.javascripts.footer is not empty %}
+			{% for script in page.javascripts.footer %}
+				<script type="text/javascript" src="{{script.path}}"></script>
+			{% endfor %}
+		{% endif %}
+	{% endblock footerJavascripts %#}
 </body>
 </html>

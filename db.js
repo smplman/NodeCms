@@ -66,7 +66,7 @@ exports.getCmsPage = function (route, callback) {
 exports.insertCmsPage = function(page, callback) {
 	page._id = pageData.id();
 	pageData.insert(page, function(e,doc){
-		socket.socketEmit('server-alert', 'New CMS Page Added!');
+		//socket.socketEmit('server-alert', 'New CMS Page Added!');
 		callback && callback(doc);
 	});
 }

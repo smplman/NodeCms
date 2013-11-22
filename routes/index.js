@@ -21,28 +21,39 @@ exports.indexGet = function(page) {
 
 //exports.indexPost = function
 exports.indexAction = function(app){
+	var self = this;
 	return function(req, res) {
-		data.getCmsData(function(cmsData){
-			data.getCmsPage('/', function(page){
-				tplData = {
-						"app" : cmsData,
-						"title" : "Index",
-						"isSocket" : false,
-						"page" : page
+		self.getPageData('/', function(tplData){
+			if(res){
+				res.render('index.html.twig',tplData);
+			} else {
+				tplData.isSocket = true;
+				app.render('index.html.twig', tplData, function(err, html){
+					page = tplData.page;
+					page.html = html;
+				  	console.log('Page Response:', page);
+					req.io.emit('page_response',page);
+				});
+			}
+		});
+	};
+};
 
-				};
-				if(res) {
-					res.render('index.html.twig', tplData);
-				} else {
-						tplData.isSocket = true;
-			  			app.render(page.template, tplData, function(err, html){
-				  			page.html = html;
-				  			console.log('Page Response:', page);
-							req.io.emit('page_response',page);
-						});
-
-				}
-			});
+exports.aboutAction = function(app){
+	var self = this;
+	return function(req, res) {
+		self.getPageData('/about', function(tplData){
+			if(res){
+				res.render('cms/about.html.twig',tplData);
+			} else {
+				tplData.isSocket = true;
+				app.render('cms/about.html.twig', tplData, function(err, html){
+					page = tplData.page;
+					page.html = html;
+				  	console.log('Page Response:', page);
+					req.io.emit('page_response',page);
+				});
+			}
 		});
 	};
 };
@@ -56,7 +67,8 @@ exports.settingsAction = function(app){
 				  	        "app" : cmsData,
 				  	        "title" : "Settings",
 				  	        "isSocket" : false,
-				  	        "pages" : pages
+				  	        "pages" : pages,
+				  	        "page" : page
 				  	};
 
 					if (res) {
@@ -73,4 +85,41 @@ exports.settingsAction = function(app){
 			});
 		});
 	};
+};
+
+exports.newPageAction = function(app){
+	var self = this;
+	return function(req, res) {
+		data.getCmsPages(function(pages){
+			self.getPageData('/cms/new/page', function(tplData){
+				tplData.pages = pages;
+				if(res){
+					res.render('cms/newPage.html.twig',tplData);
+				} else {
+					tplData.isSocket = true;
+					app.render('cms/newPage.html.twig', tplData, function(err, html){
+						page = tplData.page;
+						page.html = html;
+					  	console.log('Page Response:', page);
+						req.io.emit('page_response',page);
+					});
+				}
+			});
+		});
+	};
+};
+
+exports.getPageData = function(route, callback){
+	data.getCmsData(function(cmsData){
+		data.getCmsPage(route, function(page){
+			tplData = {
+				"app" : cmsData,
+				"title" : page.title,
+				"isSocket" : false,
+				"page" : page
+
+			};
+			callback && callback(tplData);
+		});
+	});
 };
