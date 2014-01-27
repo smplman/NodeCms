@@ -10,6 +10,7 @@ Ideally this should be separated into three server environments when moving to p
 	2) Socket.io
 	3) CMS HTTP
 	**4) Mongo
+
 ** I am using Mongo, but the data can come from anywhere
 
 The Main site client and the CMS client would then connect to the same socket server to allow event communication between them.
